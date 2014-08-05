@@ -113,6 +113,17 @@ function handleWin(turn) {
 function updateScore(turn) {
   score[turn] +=1;
   $('#' + turn + 'Score').text(score[turn]);
+  saveScore();
+}
+
+function saveScore() {
+  localStorage.setItem('score', JSON.stringify(score));
+}
+
+function loadScore() {
+  score = JSON.parse(localStorage.getItem('score'));
+  $('#XScore').text(score.X);
+  $('#OScore').text(score.O);
 }
 
 function clearBoard() {
@@ -130,4 +141,7 @@ function loadEventHandlers() {
   $("#clearBoardBtn").click(clearBoard);
 }
 
-$(document).ready(loadEventHandlers);
+$(document).ready(function() {
+  loadEventHandlers();
+  loadScore();
+});
