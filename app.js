@@ -121,7 +121,7 @@ function saveScore() {
 }
 
 function loadScore() {
-  score = JSON.parse(localStorage.getItem('score'));
+  score = JSON.parse(localStorage.getItem('score')) || score;
   $('#XScore').text(score.X);
   $('#OScore').text(score.O);
 }
