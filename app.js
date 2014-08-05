@@ -2,6 +2,10 @@ var turn = 'X';
 var topRow = [];
 var middleRow = [];
 var bottomRow = [];
+var score = {
+  X: 0,
+  O: 0
+};
 
 function changeTurn() {
   turn = (turn == 'X') ? 'O' : 'X';
@@ -53,52 +57,62 @@ function checkWin() {
     && (topRow[0] == topRow[1]) 
     && (topRow[0] == topRow[2]) 
     && (topRow[1] == topRow[2])) {
-      alert(turn + " won!");
+      handleWin(turn);
   } else if
     (middleRow.length == 3
     && (middleRow[0] == middleRow[1])
     && (middleRow[0] == middleRow[2])
     && (middleRow[1] == middleRow[2])) {
-      alert(turn + " won!");
+      handleWin(turn);
   } else if
     (bottomRow.length == 3
     && (bottomRow[0] == bottomRow[1])
     && (bottomRow[0] == bottomRow[2])
     && (bottomRow[1] == bottomRow[2])) {
-      alert(turn + " won!");
+      handleWin(turn);
   } else if
     ((topRow[0]!=null && middleRow[0]!=null && bottomRow[0]!=null)
     && (topRow[0] == middleRow[0])
     && (topRow[0] == bottomRow[0])
     && (middleRow[0] == bottomRow[0])) {
-      alert(turn + " won!");
+      handleWin(turn);
   } else if
     ((topRow[1]!=null && middleRow[1]!=null && bottomRow[1]!=null)
     && (topRow[1] == middleRow[1])
     && (topRow[1] == bottomRow[1])
     && (middleRow[1] == bottomRow[1])) {
-      alert(turn + " won!");
+      handleWin(turn);
   } else if
     ((topRow[2]!=null && middleRow[2]!=null && bottomRow[2]!=null)
     && (topRow[2] == middleRow[2])
     && (topRow[2] == bottomRow[2])
     && (middleRow[2] == bottomRow[2])) {
-      alert(turn + " won!");
+      handleWin(turn);
   } else if
     ((topRow[0]!=null && middleRow[1]!=null && bottomRow[2]!=null)
     && (topRow[0] == middleRow[1])
     && (topRow[0] == bottomRow[2])
     && (middleRow[1] == bottomRow[2])) {
-      alert(turn + " won!");
+      handleWin(turn);
   } else if
     ((topRow[2]!=null && middleRow[1]!=null && bottomRow[0]!=null)
     && (topRow[2] == middleRow[1])
     && (topRow[2] == bottomRow[0])
     && (middleRow[1] == bottomRow[0])) {
-      alert(turn + " won!");
+      handleWin(turn);
   } else {
     changeTurn();
   }
+}
+
+function handleWin(turn) {
+  updateScore(turn);
+  alert(turn + " wins!");
+}
+
+function updateScore(turn) {
+  score[turn] +=1;
+  $('#' + turn + 'Score').text(score[turn]);
 }
 
 function clearBoard() {
@@ -106,6 +120,7 @@ function clearBoard() {
   middleRow = [];
   bottomRow = [];
   $('.box').text('');
+  changeTurn();
 }
 
 function loadEventHandlers() {
