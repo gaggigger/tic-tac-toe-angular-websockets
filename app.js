@@ -101,10 +101,18 @@ function checkWin() {
   }
 }
 
+function clearBoard() {
+  topRow = [];
+  middleRow = [];
+  bottomRow = [];
+  $('.box').text('');
+}
+
 function loadEventHandlers() {
   $(".box").click(function() {
     placePiece(this);
-  });  
+  });
+  $("#clearBoardBtn").click(clearBoard);
 }
 
 $(document).ready(loadEventHandlers);
