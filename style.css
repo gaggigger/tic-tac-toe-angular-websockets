@@ -1,9 +1,10 @@
 .container {
   margin: 0 auto;
-  margin-top: 80px;
+  margin-top: 20px;
   width: 308px;
   text-align: center;
 }
+
 .box {
   display: inline-block;
   height: 100px;
@@ -12,26 +13,43 @@
   text-align: center;
   font-size: 85px;
 }
+
 .topRow div {
   border-top: none;
 }
+
 .bottomRow div {
   border-bottom: none;
 }
+
 .leftBox {
   border-left: none;
   float: left;
   display: block;
 }
+
 .rightBox {
   border-right: none;
   float: right;
   display: block;
 }
+
 .turnDisplay {
-  font-size: 60px;
+  font-size: 40px;
   text-align: center;
 }
+
 .score {
   width: 100%;
+}
+
+.header {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.header img {
+  height: 200px;
+  display: inline-block;
+  padding: 0 30px 10px 30px;
 }
