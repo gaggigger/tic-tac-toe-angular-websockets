@@ -13,6 +13,7 @@ var gameOver = false;
 function changeTurn() {
   turn = (turn == 'X') ? 'O' : 'X';
   $('.turnDisplay').html('Current turn: ' + turn);
+  $('.container').css('cursor', 'url(img/' + turn + '.png), auto');
 }
 
 function placePiece(el) {
