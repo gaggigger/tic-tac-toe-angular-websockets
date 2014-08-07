@@ -140,11 +140,18 @@ function clearBoard() {
   gameOver = false;
 }
 
+function resetScore() {
+  score = { X: 0, O: 0 };
+  saveScore();
+  loadScore();
+}
+
 function loadEventHandlers() {
   $('.box').click(function() {
     placePiece(this);
   });
   $('#clearBoardBtn').click(clearBoard);
+  $('#resetScoreBtn').click(resetScore);
 }
 
 $(document).ready(function() {
