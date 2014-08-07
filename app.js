@@ -1,3 +1,5 @@
+'use strict';
+
 var turn = 'X';
 var topRow = [];
 var middleRow = [];
@@ -9,12 +11,12 @@ var score = {
 
 function changeTurn() {
   turn = (turn == 'X') ? 'O' : 'X';
-  $(".turnDisplay").html('Current turn: ' + turn);
-};
+  $('.turnDisplay').html('Current turn: ' + turn);
+}
 
 function placePiece(el) {
   console.log($(el).text());
-  if ($(el).text() == '') {
+  if ($(el).text() === '') {
     $(el).text(turn);
 
     switch ($(el).parent().attr('class')) {
@@ -49,56 +51,56 @@ function placePiece(el) {
 
     checkWin();
   }
-};
+}
 
 function checkWin() {
   if 
-    (topRow.length == 3 
-    && (topRow[0] == topRow[1]) 
-    && (topRow[0] == topRow[2]) 
-    && (topRow[1] == topRow[2])) {
+    (topRow.length == 3 &&
+    (topRow[0] == topRow[1]) &&
+    (topRow[0] == topRow[2]) &&
+    (topRow[1] == topRow[2])) {
       handleWin(turn);
   } else if
-    (middleRow.length == 3
-    && (middleRow[0] == middleRow[1])
-    && (middleRow[0] == middleRow[2])
-    && (middleRow[1] == middleRow[2])) {
+    (middleRow.length == 3 &&
+    (middleRow[0] == middleRow[1]) &&
+    (middleRow[0] == middleRow[2]) &&
+    (middleRow[1] == middleRow[2])) {
       handleWin(turn);
   } else if
-    (bottomRow.length == 3
-    && (bottomRow[0] == bottomRow[1])
-    && (bottomRow[0] == bottomRow[2])
-    && (bottomRow[1] == bottomRow[2])) {
+    (bottomRow.length == 3 &&
+    (bottomRow[0] == bottomRow[1]) &&
+    (bottomRow[0] == bottomRow[2]) &&
+    (bottomRow[1] == bottomRow[2])) {
       handleWin(turn);
   } else if
-    ((topRow[0]!=null && middleRow[0]!=null && bottomRow[0]!=null)
-    && (topRow[0] == middleRow[0])
-    && (topRow[0] == bottomRow[0])
-    && (middleRow[0] == bottomRow[0])) {
+    ((topRow[0] !== undefined && middleRow[0] !== undefined && bottomRow[0] !== undefined) &&
+    (topRow[0] == middleRow[0]) &&
+    (topRow[0] == bottomRow[0]) &&
+    (middleRow[0] == bottomRow[0])) {
       handleWin(turn);
   } else if
-    ((topRow[1]!=null && middleRow[1]!=null && bottomRow[1]!=null)
-    && (topRow[1] == middleRow[1])
-    && (topRow[1] == bottomRow[1])
-    && (middleRow[1] == bottomRow[1])) {
+    ((topRow[1] !== undefined && middleRow[1] !== undefined && bottomRow[1] !== undefined) &&
+    (topRow[1] == middleRow[1]) &&
+    (topRow[1] == bottomRow[1]) &&
+    (middleRow[1] == bottomRow[1])) {
       handleWin(turn);
   } else if
-    ((topRow[2]!=null && middleRow[2]!=null && bottomRow[2]!=null)
-    && (topRow[2] == middleRow[2])
-    && (topRow[2] == bottomRow[2])
-    && (middleRow[2] == bottomRow[2])) {
+    ((topRow[2] !== undefined && middleRow[2] !== undefined && bottomRow[2] !== undefined) &&
+    (topRow[2] == middleRow[2]) &&
+    (topRow[2] == bottomRow[2]) &&
+    (middleRow[2] == bottomRow[2])) {
       handleWin(turn);
   } else if
-    ((topRow[0]!=null && middleRow[1]!=null && bottomRow[2]!=null)
-    && (topRow[0] == middleRow[1])
-    && (topRow[0] == bottomRow[2])
-    && (middleRow[1] == bottomRow[2])) {
+    ((topRow[0] !== undefined && middleRow[1] !== undefined && bottomRow[2] !== undefined) &&
+    (topRow[0] == middleRow[1]) &&
+    (topRow[0] == bottomRow[2]) &&
+    (middleRow[1] == bottomRow[2])) {
       handleWin(turn);
   } else if
-    ((topRow[2]!=null && middleRow[1]!=null && bottomRow[0]!=null)
-    && (topRow[2] == middleRow[1])
-    && (topRow[2] == bottomRow[0])
-    && (middleRow[1] == bottomRow[0])) {
+    ((topRow[2] !== undefined && middleRow[1] !== undefined && bottomRow[0] !== undefined) &&
+    (topRow[2] == middleRow[1]) &&
+    (topRow[2] == bottomRow[0]) &&
+    (middleRow[1] == bottomRow[0])) {
       handleWin(turn);
   } else {
     changeTurn();
@@ -107,7 +109,7 @@ function checkWin() {
 
 function handleWin(turn) {
   updateScore(turn);
-  alert(turn + " wins!");
+  alert(turn + ' wins!');
 }
 
 function updateScore(turn) {
@@ -135,10 +137,10 @@ function clearBoard() {
 }
 
 function loadEventHandlers() {
-  $(".box").click(function() {
+  $('.box').click(function() {
     placePiece(this);
   });
-  $("#clearBoardBtn").click(clearBoard);
+  $('#clearBoardBtn').click(clearBoard);
 }
 
 $(document).ready(function() {
