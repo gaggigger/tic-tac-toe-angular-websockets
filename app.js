@@ -8,6 +8,7 @@ var score = {
   X: 0,
   O: 0
 };
+var gameOver = false;
 
 function changeTurn() {
   turn = (turn == 'X') ? 'O' : 'X';
@@ -16,7 +17,7 @@ function changeTurn() {
 
 function placePiece(el) {
   console.log($(el).text());
-  if ($(el).text() === '') {
+  if ($(el).text() === '' && !gameOver) {
     $(el).text(turn);
 
     switch ($(el).parent().attr('class')) {
@@ -109,6 +110,7 @@ function checkWin() {
 
 function handleWin(turn) {
   updateScore(turn);
+  gameOver = true;
   alert(turn + ' wins!');
 }
 
@@ -134,6 +136,7 @@ function clearBoard() {
   bottomRow = [];
   $('.box').text('');
   changeTurn();
+  gameOver = false;
 }
 
 function loadEventHandlers() {
