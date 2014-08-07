@@ -1,9 +1,12 @@
-.container {
+.gameBoard {
   margin: 0 auto;
   margin-top: 20px;
   width: 308px;
   text-align: center;
   cursor: url(img/X.png), auto;
+  border: 1px solid #CCC;
+  border-radius: 50px;
+  padding: 30px;
 }
 
 .box {
@@ -40,10 +43,6 @@
   text-align: center;
 }
 
-.score {
-  width: 100%;
-}
-
 .header {
   text-align: center;
   margin-top: 50px;
@@ -53,4 +52,31 @@
   height: 200px;
   display: inline-block;
   padding: 0 30px 10px 30px;
+}
+
+.controlsAndScore {
+  text-align: center;
+}
+
+.controls {
+  display: inline-block;
+  margin-right: 50px;
+}
+
+.controls button {
+  float: left; /* this fixes the controls and score divs being misaligned */
+  margin-left: 20px;
+}
+
+.score {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.score table {
+  width: 90px;
+}
+
+.score h4 {
+  margin: 0 0 10px 0;
 }

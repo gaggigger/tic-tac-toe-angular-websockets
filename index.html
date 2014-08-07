@@ -13,7 +13,7 @@
     <img src="img/toe.png" />
   </div>
 
-  <div class="container">
+  <div class="gameBoard">
 
     <div class="topRow">
       <div class="box leftBox"></div>
@@ -33,27 +33,37 @@
       <div class="box rightBox"></div>
     </div>
 
-    <button id="clearBoardBtn">New game</button>
-
-    <table class="score">
-      <thead>
-        <tr>
-          <th>X</th>
-          <th>O</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td id="XScore">0</td>
-          <td id="OScore">0</td>
-        </tr>
-      </tbody>
-    </table>
-
   </div>
 
   <p class="turnDisplay">Current turn: X</p>
 
+  <div class="controlsAndScore">
+
+    <div class="controls">
+      <h4>Controls</h4>
+      <button id="clearBoardBtn">New game</button>
+      <button id="resetScoreBtn">Reset score</button>
+    </div>
+
+    <div class="score">
+      <h4>Score</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>X</th>
+            <th>O</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td id="XScore">0</td>
+            <td id="OScore">0</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
 
 
 </body>
