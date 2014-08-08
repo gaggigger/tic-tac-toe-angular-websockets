@@ -106,7 +106,9 @@ function checkWin() {
     (middleRow[1] == bottomRow[0])) {
       handleWin(turn);
   } else if
-    (topRow.length == 3 && middleRow.length == 3 && bottomRow.length == 3 && !gameOver) {
+    (Object.keys(topRow).length == 3 &&
+    Object.keys(middleRow).length == 3 &&
+    Object.keys(bottomRow).length == 3 && !gameOver) {
       handleStalemate();
   } else {
     changeTurn();
