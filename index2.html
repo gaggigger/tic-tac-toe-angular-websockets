@@ -1,0 +1,61 @@
+<html>
+<head>
+  <style>
+    .wrapper {
+      display: table;
+    }
+
+    .box {
+      display: table-cell;
+      height: 100px;
+      width: 100px;
+      border: 1px solid;
+    }
+
+    .row {
+      display: table-row;
+    }
+
+    .top {
+      border-top: 0;
+    }
+
+    .bottom {
+      border-bottom: 0;
+    }
+
+    .left {
+      border-left: 0;
+    }
+
+    .right {
+      border-right: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+
+    <div class="row">
+      <div class="box top left"></div>
+      <div class="box top mid"></div>
+      <div class="box top right"></div>
+    </div>
+
+    <div class="row">
+      <div class="box main left"></div>
+      <div class="box main mid"></div>
+      <div class="box main right"></div>
+      </div>
+
+    <div class="row">
+      <div class="box bottom left"></div>
+      <div class="box bottom mid"></div>
+      <div class="box bottom right"></div>
+    </div>
+
+  </div>
+
+</body>
+</html>

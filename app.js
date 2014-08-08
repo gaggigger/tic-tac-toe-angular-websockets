@@ -23,27 +23,28 @@ function placePiece(el) {
 
     switch ($(el).parent().attr('class')) {
       case 'topRow':
-        if ($(el).hasClass('leftBox')) {
+        if ($(el).hasClass('left')) {
           topRow[0] = turn;
-        } else if ($(el).hasClass('rightBox')) {
+        } else if ($(el).hasClass('right')) {
           topRow[2] = turn;
         } else {
           topRow[1] = turn;
         }
+        console.log('topRow');
         break;
       case 'middleRow':
-        if ($(el).hasClass('leftBox')) {
+        if ($(el).hasClass('left')) {
           middleRow[0] = turn;
-        } else if ($(el).hasClass('rightBox')) {
+        } else if ($(el).hasClass('right')) {
           middleRow[2] = turn;
         } else {
           middleRow[1] = turn;
         }
         break;
       case 'bottomRow':
-        if ($(el).hasClass('leftBox')) {
+        if ($(el).hasClass('left')) {
           bottomRow[0] = turn;
-        } else if ($(el).hasClass('rightBox')) {
+        } else if ($(el).hasClass('right')) {
           bottomRow[2] = turn;
         } else {
           bottomRow[1] = turn;
