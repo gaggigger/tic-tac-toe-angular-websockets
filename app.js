@@ -118,12 +118,14 @@ function checkWin() {
 function handleWin(turn) {
   updateScore(turn);
   gameOver = true;
-  alert(turn + ' wins!');
+  $('.winner').text('The winner is ' + turn + '!');
+  $('.winner').show();
 }
 
 function handleStalemate() {
   gameOver = true;
-  alert('Everyone\'s a winner!');
+  $('.winner').text('Everyone\'s a winner!');
+  $('.winner').show();
 }
 
 function updateScore(turn) {
@@ -149,6 +151,7 @@ function clearBoard() {
   $('.box').text('');
   changeTurn();
   gameOver = false;
+  $('.winner').hide();
 }
 
 function resetScore() {
