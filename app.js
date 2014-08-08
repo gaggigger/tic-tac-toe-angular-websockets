@@ -104,6 +104,9 @@ function checkWin() {
     (topRow[2] == bottomRow[0]) &&
     (middleRow[1] == bottomRow[0])) {
       handleWin(turn);
+  } else if
+    (topRow.length == 3 && middleRow.length == 3 && bottomRow.length == 3 && !gameOver) {
+      handleStalemate();
   } else {
     changeTurn();
   }
@@ -113,6 +116,11 @@ function handleWin(turn) {
   updateScore(turn);
   gameOver = true;
   alert(turn + ' wins!');
+}
+
+function handleStalemate() {
+  gameOver = true;
+  alert('Everyone\'s a winner!');
 }
 
 function updateScore(turn) {
