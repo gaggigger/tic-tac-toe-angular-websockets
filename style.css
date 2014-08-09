@@ -21,6 +21,7 @@ a:link {
   border: 1px solid #000;
   text-align: center;
   font-size: 85px;
+  vertical-align: middle;
 }
 
 .topRow, .bottomRow, .middleRow {
