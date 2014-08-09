@@ -166,6 +166,41 @@ function loadEventHandlers() {
   });
   $('#clearBoardBtn').click(clearBoard);
   $('#resetScoreBtn').click(resetScore);
+  $(document.body).keydown(function(e) {
+    switch (e.which) {
+      case 103:
+        placePiece($('.topRow > .box.left'));
+        break;
+      case 104:
+        placePiece($('.topRow > .box.center'));
+        break;
+      case 105:
+        placePiece($('.topRow > .box.right'));
+        break;
+      case 100:
+        placePiece($('.middleRow > .box.left'));
+        break;
+      case 101:
+        placePiece($('.middleRow > .box.center'));
+        break;
+      case 102:
+        placePiece($('.middleRow > .box.right'));
+        break;
+      case 97:
+        placePiece($('.bottomRow > .box.left'));
+        break;
+      case 98:
+        placePiece($('.bottomRow > .box.center'));
+        break;
+      case 99:
+        placePiece($('.bottomRow > .box.right'));
+        break;
+      case 96:
+        clearBoard();
+        break;
+    }
+    console.log(e.which);
+  });
 }
 
 $(document).ready(function() {
