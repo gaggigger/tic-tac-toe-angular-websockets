@@ -69,7 +69,7 @@ angular.module('ticTacToeApp', ['btford.socket-io'])
 })
 
 .controller('gameController', function($scope, socketService, gameService, scoreService) {
-  $scope.gameData = gameService.new();
+  $scope.gameData;
   $scope.score = scoreService.loadScore();
   $scope.ourID;
   $scope.ourNick;
@@ -96,6 +96,7 @@ angular.module('ticTacToeApp', ['btford.socket-io'])
 
   function receiveNewGame(game) {
     console.log(game);
+    $scope.gameData = gameService.new();
     $scope.gameData.ourPiece = game.ourPiece;
     $scope.gameData.theirPiece = game.theirPiece;
     $scope.gameData.theirNick = game.playerNick;
@@ -160,6 +161,7 @@ angular.module('ticTacToeApp', ['btford.socket-io'])
 
   $scope.startNewGame = function(player) {
     socketService.newGame(player);
+    $scope.gameData = gameService.new();
   }
 
 

@@ -1,96 +1,88 @@
 <!doctype html>
 <html>
 <head>
+  <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="style.css">
+
   <script src="https://cdn.socket.io/socket.io-1.0.6.js"></script>
   <script src="bower_components/angular/angular.min.js"></script>
   <script src="bower_components/angular-socket-io/socket.min.js"></script>
   <script src="js/app.js"></script>
-  <script src="js/interactive.js"></script></head>
+</head>
 <body ng-app="ticTacToeApp" ng-controller="gameController">
 
-  <div class="header">
-    <img src="img/tick.png" />
-    <img src="img/tack.png" />
-    <img src="img/toe.png" />
-  </div>
-
-  <div class="nickname">
-    <label for="nick">Nickname: </label>
-    <input type="text" id="nick" ng-model="nick">
-    <button id="setNick" ng-click="setNick(nick)">Set</button>
-    Our ID: {{ourID}} || 
-    Our nick: {{ourNick}}
-  </div>
-
-  <div class="newGame">
-    <label for="player">New game: </label>
-    <input type="text" id="player" ng-model="player">
-    <button id="newGame" ng-click="startNewGame(player)">Start</button>
-  </div>
-
-  <div class="gameBoard" style="cursor: url(img/{{gameData.ourPiece}}.png) 32 32, auto">
-
-    <div class="topRow">
-      <div class="box left" ng-bind="gameData.topRow[0]" ng-click="makeMove([0,0])"></div>
-      <div class="box center" ng-bind="gameData.topRow[1]" ng-click="makeMove([0,1])"></div>
-      <div class="box right" ng-bind="gameData.topRow[2]" ng-click="makeMove([0,2])"></div>
+  <div class="container">
+    <div class="row header">
+      <div class="col-sm-2 col-sm-offset-3">
+        <img src="img/tick.png">
+      </div>
+      <div class="col-sm-2">
+        <img src="img/tack.png">
+      </div>
+      <div class="col-sm-3">
+        <img src="img/toe.png">
+      </div>
     </div>
 
-    <div class="middleRow">
-      <div class="box left" ng-bind="gameData.middleRow[0]" ng-click="makeMove([1,0])"></div>
-      <div class="box center" ng-bind="gameData.middleRow[1]" ng-click="makeMove([1,1])"></div>
-      <div class="box right" ng-bind="gameData.middleRow[2]" ng-click="makeMove([1,2])"></div>
+    <div class="row">
+      <div class="gameBoard col-sm-5 col-sm-offset-1" style="cursor: url(img/{{gameData.ourPiece}}.png) 32 32, auto">
+        <div class="row topRow">
+          <div class="col-sm-4 box left" ng-bind="gameData.topRow[0]" ng-click="makeMove([0,0])"></div>
+          <div class="col-sm-4 box center" ng-bind="gameData.topRow[1]" ng-click="makeMove([0,1])"></div>
+          <div class="col-sm-4 box right" ng-bind="gameData.topRow[2]" ng-click="makeMove([0,2])"></div>
+        </div>
+        <div class="row middleRow">
+          <div class="col-sm-4 box left" ng-bind="gameData.middleRow[0]" ng-click="makeMove([1,0])"></div>
+          <div class="col-sm-4 box center" ng-bind="gameData.middleRow[1]" ng-click="makeMove([1,1])"></div>
+          <div class="col-sm-4 box right" ng-bind="gameData.middleRow[2]" ng-click="makeMove([1,2])"></div>
+        </div>
+        <div class="row bottomRow">
+          <div class="col-sm-4 box left" ng-bind="gameData.bottomRow[0]" ng-click="makeMove([2,0])"></div>
+          <div class="col-sm-4 box center" ng-bind="gameData.bottomRow[1]" ng-click="makeMove([2,1])"></div>
+          <div class="col-sm-4 box right" ng-bind="gameData.bottomRow[2]" ng-click="makeMove([2,2])"></div>
+        </div>
+      </div>
+
+      <div class="col-sm-5 col-sm-offset-1">
+        <div class="form-inline">
+          <div class="form-group">
+            <label for="nick">Pick a nickname: </label>
+            <input type="text" id="nick" ng-model="nick" class="form-control" ng-disabled="ourNick != null">
+          </div>
+          <button class="btn btn-primary" ng-class="{'btn-success': ourNick != null};" ng-click="setNick(nick)" ng-disabled="ourNick != null">Set</button>
+        </div>
+
+        <div class="form-inline">
+          <div class="form-group">
+            <label for="player">Challenge a player: </label>
+            <input type="text" id="player" ng-model="player" class="form-control" ng-disabled="(gameData!=null && !gameData.gameOver)">
+          </div>
+          <button class="btn btn-primary" ng-class="{'btn-success': gameData!=null || (gameData && !gameData.gameOver)}" ng-disabled="ourNick==null || (gameData!=null && !gameData.gameOver)" ng-click="startNewGame(player)">Go</button>
+        </div>
+
+        <div class="form-inline">
+          <div class="form-group">
+            <label for="ourID">Your ID: </label>
+            <input type="text" disabled ng-model="ourID" id="ourID" class="form-control">
+          </div>
+        </div>
+
+        <div class="currentTurn">
+          <p>Current turn: {{gameData.ourTurn? ourNick : gameData.theirNick}}</p>
+        </div>
+
+        <div class="score">
+          <p>You've won {{score.won}} games</p>
+          <p>You've lost {{score.lost}} games</p>
+        </div>
+
+        <p class="winner won" ng-show="gameData.gameOver && gameData.won && !gameData.stalemate">You won!</p>
+        <p class="winner lost" ng-show="gameData.gameOver && gameData.lost && !gameData.stalemate">{{gameData.theirNick}} won this round</p>
+        <p class="winner won" ng-show="gameData.stalemate">Everyone's a winner!</p>
+      </div>
     </div>
 
-    <div class="bottomRow">
-      <div class="box left" ng-bind="gameData.bottomRow[0]" ng-click="makeMove([2,0])"></div>
-      <div class="box center" ng-bind="gameData.bottomRow[1]" ng-click="makeMove([2,1])"></div>
-      <div class="box right" ng-bind="gameData.bottomRow[2]" ng-click="makeMove([2,2])"></div>
-    </div>
 
   </div>
-
-  <p class="turnDisplay">Current turn: {{gameData.ourTurn ? ourNick : gameData.theirNick}}</p>
-  <p class="winner won" ng-show="gameData.gameOver && gameData.won && !gameData.stalemate">You won!</p>
-  <p class="winner lost" ng-show="gameData.gameOver && gameData.lost && !gameData.stalemate">{{gameData.theirNick}} won this round</p>
-  <p class="winner won" ng-show="gameData.stalemate">Everyone's a winner!</p>
-
-  <div class="controlsAndScore">
-
-    <div class="controls">
-      <h4>Controls</h4>
-      <button id="clearBoardBtn">New game</button>
-      <button id="resetScoreBtn">Reset score</button>
-    </div>
-
-    <div class="score">
-      <h4>Score</h4>
-      <table>
-        <thead>
-          <tr>
-            <th>Won</th>
-            <th>Lost</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{{score.won}}</td>
-            <td>{{score.lost}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-  </div>
-
-  <div class="footer">
-    Made by Vito | 
-    <a href="https://github.com/vitosamson/tic-tac-toe">
-      Source @ Github
-    </a>
-  </div>
-
-
 </body>
 </html>
