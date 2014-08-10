@@ -51,13 +51,19 @@ a:link {
 }
 
 .winner {
-  display: none;
   text-align: center;
   font-style: italic;
-  color: #00be00;
   font-size: 30px;
   margin-bottom: 0;
   margin-top: 10px;
+}
+
+.won {
+  color: #00be00;
+}
+
+.lost {
+  color: #be0019;
 }
 
 .header {

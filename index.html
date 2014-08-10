@@ -52,7 +52,9 @@
   </div>
 
   <p class="turnDisplay">Current turn: {{gameData.ourTurn ? ourNick : gameData.theirNick}}</p>
-  <p class="winner">The winner is X!</p>
+  <p class="winner won" ng-show="gameData.gameOver && gameData.won && !gameData.stalemate">You won!</p>
+  <p class="winner lost" ng-show="gameData.gameOver && gameData.lost && !gameData.stalemate">{{gameData.theirNick}} won this round</p>
+  <p class="winner won" ng-show="gameData.stalemate">Everyone's a winner!</p>
 
   <div class="controlsAndScore">
 

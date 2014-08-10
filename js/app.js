@@ -23,7 +23,12 @@ angular.module('ticTacToeApp', ['btford.socket-io'])
         theirNick: '',
         theirID: '',
         ourTurn: false,
-        gameID: ''
+        gameID: '',
+        stalemate: false,
+        gameOver: false,
+        won: false,
+        lost: false,
+        winner: ''
       };
     }
   }
@@ -96,7 +101,15 @@ angular.module('ticTacToeApp', ['btford.socket-io'])
     $scope.gameData.gameID = game.game;
   }
 
-  function gameOver(winner) {
+  function gameOver(winner, stalemate) {
+    $scope.gameData.gameOver = true;
+    if (stalemate) $gameData.stalemate = true;
+    if (winner === $scope.ourID) {
+      $scope.gameData.winner = $scope.ourNick;
+      $scope.gameData.won = true;
+    } else {
+      $scope.gameData.lost = true;
+    }
     console.log(winner);
   }
 
