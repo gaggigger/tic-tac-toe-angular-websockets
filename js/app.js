@@ -3,7 +3,7 @@ angular.module('ticTacToeApp', ['btford.socket-io'])
 .factory('scoreService', function() {
   return {
     loadScore: function() {
-      return JSON.parse(localStorage.getItem('score')) || {X: 0, O: 0};
+      return JSON.parse(localStorage.getItem('score')) || {won: 0, lost: 0};
     },
     saveScore: function(score) {
       localStorage.setItem('score', JSON.stringify(score));
@@ -66,8 +66,9 @@ angular.module('ticTacToeApp', ['btford.socket-io'])
   }
 })
 
-.controller('gameController', function($scope, socketService, gameService) {
+.controller('gameController', function($scope, socketService, gameService, scoreService) {
   $scope.gameData = gameService.new();
+  $scope.score = scoreService.loadScore();
   $scope.ourID;
   $scope.ourNick;
 
@@ -107,8 +108,12 @@ angular.module('ticTacToeApp', ['btford.socket-io'])
     if (winner === $scope.ourID) {
       $scope.gameData.winner = $scope.ourNick;
       $scope.gameData.won = true;
+      $scope.score.won += 1;
+      scoreService.saveScore();
     } else {
       $scope.gameData.lost = true;
+      $scope.score.lost +=1;
+      scoreService.saveScore();
     }
     console.log(winner);
   }
@@ -137,7 +142,7 @@ angular.module('ticTacToeApp', ['btford.socket-io'])
   }
   
   $scope.makeMove = function(box) {
-    if ($scope.gameData.ourTurn) {
+    if ($scope.gameData.ourTurn && !$scope.gameData.gameOver) {
       socketService.sendMove({
         col: box[1],
         row: box[0],
