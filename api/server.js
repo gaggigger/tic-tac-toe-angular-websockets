@@ -96,6 +96,8 @@ io.sockets.on('connection', function(socket) {
     if (checkForWinner(games[data.gameID])) {
       socket.emit('game over', socket.id);
       socket.to(data.to).emit('game over', socket.id);
+      players[socket.id].inGame = false;
+      players[data.to].inGame = false;
     }
   });
 
