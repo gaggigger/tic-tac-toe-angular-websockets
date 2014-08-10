@@ -41,7 +41,7 @@ angular.module('ticTacToeApp', ['btford.socket-io'])
   return {
     connect: function(callbacks) {
       ws = socketFactory({
-        ioSocket: io.connect('ws://localhost:3000')
+        ioSocket: io.connect('ws://lit-anchorage-3918.herokuapp.com:80')
       });
       ws.on('connect ack', callbacks.connect);
       ws.on('move', callbacks.move);
