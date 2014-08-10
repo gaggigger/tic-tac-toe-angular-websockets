@@ -1,11 +1,13 @@
 angular.module('ticTacToeApp', ['btford.socket-io'])
 
 .factory('scoreService', function() {
+  var score;
   return {
     loadScore: function() {
-      return JSON.parse(localStorage.getItem('score')) || {won: 0, lost: 0};
+      score = JSON.parse(localStorage.getItem('score')) || {won: 0, lost: 0};
+      return score;
     },
-    saveScore: function(score) {
+    saveScore: function() {
       localStorage.setItem('score', JSON.stringify(score));
     }
   }
