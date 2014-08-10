@@ -25,51 +25,57 @@ io.sockets.on('connection', function(socket) {
   });
 
   socket.on('new game', function(player) {
-    if (players[player].inGame) {
-      console.log('player is already in a game');
-      socket.emit('game denied', 'player is already in a game');
+    if (players[player] === undefined) {
+      socket.emit('game denied', 'that player doesn\'t exist!');
     } else {
-      gameId = Math.random().toString(36).substring(4);
-      
-      games[gameId] = {
-        playerOne: socket.id,
-        playerTwo: player,
-        topRow: [],
-        middleRow: [],
-        bottomRow: []
-      };
+      if (players[player].inGame) {
+        console.log('player is already in a game');
+        socket.emit('game denied', 'player is already in a game');
+      } else {
+        gameId = Math.random().toString(36).substring(4);
+        
+        games[gameId] = {
+          playerOne: socket.id,
+          playerTwo: player,
+          topRow: [],
+          middleRow: [],
+          bottomRow: []
+        };
 
-      players[socket.id].inGame = true;
-      players[socket.id].game = gameId;
-      players[socket.id].piece = 'X';
-      players[player].inGame = true;
-      players[player].game = gameId;
-      players[player].piece = 'O';
+        players[socket.id].inGame = true;
+        players[socket.id].game = gameId;
+        players[socket.id].piece = 'X';
+        players[player].inGame = true;
+        players[player].game = gameId;
+        players[player].piece = 'O';
 
-      // send the game setup data back to the challenger
-      socket.emit('game started', {
-        game: gameId,
-        playerId: player,
-        playerNick: players[player].nick || '',
-        theirPiece: players[player].piece,
-        ourPiece: players[socket.id].piece,
-        ourTurn: true
-      });
+        // send the game setup data back to the challenger
+        socket.emit('game started', {
+          game: gameId,
+          playerId: player,
+          playerNick: players[player].nick || '',
+          theirPiece: players[player].piece,
+          ourPiece: players[socket.id].piece,
+          ourTurn: true
+        });
 
-      // send the game setup data to the other player
-      socket.to(player).emit('game started', {
-        game: gameId,
-        playerId: socket.id,
-        playerNick: players[socket.id].nick || '',
-        theirPiece: players[socket.id].piece,
-        ourPiece: players[player].piece,
-        ourTurn: false
-      });
+        // send the game setup data to the other player
+        socket.to(player).emit('game started', {
+          game: gameId,
+          playerId: socket.id,
+          playerNick: players[socket.id].nick || '',
+          theirPiece: players[socket.id].piece,
+          ourPiece: players[player].piece,
+          ourTurn: false
+        });
+      }
+
+      console.log('games: ' + util.inspect(games));
+      console.log('players: ' + util.inspect(players));
+
     }
-
-    console.log('games: ' + util.inspect(games));
-    console.log('players: ' + util.inspect(players));
   });
+
 
   socket.on('move', function(data) {
     // console.log(data);

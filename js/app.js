@@ -40,6 +40,7 @@ angular.module('ticTacToeApp', ['btford.socket-io'])
       ws.on('move', callbacks.move);
       ws.on('game started', callbacks.gameStarted);
       ws.on('game over', callbacks.gameOver);
+      ws.on('game denied', callbacks.gameDenied);
       return ws;
     },
     setNick: function(nick) {
@@ -69,7 +70,8 @@ angular.module('ticTacToeApp', ['btford.socket-io'])
     connect: wsConnected,
     move: receiveMove,
     gameStarted: receiveNewGame,
-    gameOver: gameOver
+    gameOver: gameOver,
+    gameDenied: gameDenied
   });
 
   // websocket callbacks
@@ -96,6 +98,10 @@ angular.module('ticTacToeApp', ['btford.socket-io'])
 
   function gameOver(winner) {
     console.log(winner);
+  }
+
+  function gameDenied(reason) {
+    console.log('game denied: ' + reason);
   }
 
   function placePiece(move, piece) {
