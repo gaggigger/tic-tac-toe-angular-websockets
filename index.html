@@ -70,6 +70,7 @@
         </div>
 
         <div class="currentTurn">
+          <p ng-show="gameData != null && !gameData.gameOver">You're in a game with {{gameData.theirNick}}</p>
           <p>Current turn: {{gameData.ourTurn? ourNick : gameData.theirNick}}</p>
         </div>
 
