@@ -137,7 +137,7 @@ angular.module('ticTacToeApp', ['btford.socket-io'])
 
   function ackNick(msg) {
     if (msg === 'good') {
-      $scope.ourNick = nick;
+      $scope.ourNick = $scope.nick;
       console.log('nick is good!');
       $scope.badNick = false;
     } else {
