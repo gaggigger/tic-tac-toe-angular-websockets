@@ -45,12 +45,13 @@
 
       <div class="col-sm-5 col-sm-offset-1">
         <div class="form-inline">
-          <div class="form-group">
+          <div class="form-group" ng-class="{'has-error': badNick}">
             <label for="nick">Pick a nickname: </label>
             <input type="text" id="nick" ng-model="nick" class="form-control" ng-disabled="ourNick != null">
           </div>
-          <button class="btn btn-primary" ng-class="{'btn-success': ourNick != null};" ng-click="setNick(nick)" ng-disabled="ourNick != null">Set</button>
+          <button class="btn btn-primary" ng-class="{'btn-success': ourNick != null, 'btn-danger': badNick};" ng-click="setNick(nick)" ng-disabled="ourNick != null">Set</button>
         </div>
+        <span class="error" ng-show="badNick">That nickname is taken already!</span>
 
         <div class="form-inline">
           <div class="form-group">
