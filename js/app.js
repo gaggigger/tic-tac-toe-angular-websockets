@@ -77,6 +77,7 @@ angular.module('ticTacToeApp', ['btford.socket-io'])
   $scope.ourID;
   $scope.ourNick;
   $scope.badNick;
+  $scope.badChallenge, $scope.badChallengeReason; 
 
   socketService.connect({
     connect: wsConnected,
@@ -108,6 +109,8 @@ angular.module('ticTacToeApp', ['btford.socket-io'])
     $scope.gameData.theirID = game.playerId;
     $scope.gameData.ourTurn = game.ourTurn;
     $scope.gameData.gameID = game.game;
+
+    $scope.badChallenge = false;
   }
 
   function gameOver(winner, stalemate) {
@@ -127,6 +130,8 @@ angular.module('ticTacToeApp', ['btford.socket-io'])
   }
 
   function gameDenied(reason) {
+    $scope.badChallenge = true;
+    $scope.badChallengeReason = reason;
     console.log('game denied: ' + reason);
   }
 
@@ -177,7 +182,6 @@ angular.module('ticTacToeApp', ['btford.socket-io'])
 
   $scope.startNewGame = function(player) {
     socketService.newGame(player);
-    $scope.gameData = gameService.new();
   }
 
 

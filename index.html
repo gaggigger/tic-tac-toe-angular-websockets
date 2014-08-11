@@ -54,12 +54,13 @@
         <span class="error" ng-show="badNick">That nickname is taken already!</span>
 
         <div class="form-inline">
-          <div class="form-group">
+          <div class="form-group" ng-class="{'has-error': badChallenge}">
             <label for="player">Challenge a player: </label>
             <input type="text" id="player" ng-model="player" class="form-control" ng-disabled="(gameData!=null && !gameData.gameOver)">
           </div>
-          <button class="btn btn-primary" ng-class="{'btn-success': gameData!=null || (gameData && !gameData.gameOver)}" ng-disabled="ourNick==null || (gameData!=null && !gameData.gameOver)" ng-click="startNewGame(player)">Go</button>
+          <button class="btn btn-primary" ng-class="{'btn-success': gameData!=null || (gameData && !gameData.gameOver), 'btn-danger': badChallenge}" ng-disabled="ourNick==null || (gameData!=null && !gameData.gameOver)" ng-click="startNewGame(player)">Go</button>
         </div>
+        <span class="error" ng-show="badChallenge">{{badChallengeReason}}</span>
 
         <div class="form-inline">
           <div class="form-group">
