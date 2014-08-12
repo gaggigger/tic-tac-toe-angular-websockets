@@ -38,16 +38,20 @@ angular.module('ticTacToeApp', ['btford.socket-io'])
 
 .factory('socketService', function(socketFactory) {
   var ws;
+  // var url = 'ws://lit-anchorage-3918.herokuapp.com:80';
+  var url = 'ws://localhost:5000';
   return {
     connect: function(callbacks) {
       ws = socketFactory({
-        ioSocket: io.connect('ws://lit-anchorage-3918.herokuapp.com:80')
+        ioSocket: io.connect(url)
       });
       ws.on('connect ack', callbacks.connect);
       ws.on('move', callbacks.move);
       ws.on('game started', callbacks.gameStarted);
       ws.on('game over', callbacks.gameOver);
       ws.on('game denied', callbacks.gameDenied);
+      ws.on('ack nick', callbacks.ackNick);
+      ws.on('player list', callbacks.playerList);
       return ws;
     },
     setNick: function(nick) {
@@ -68,18 +72,23 @@ angular.module('ticTacToeApp', ['btford.socket-io'])
   }
 })
 
-.controller('gameController', function($scope, socketService, gameService, scoreService) {
+.controller('gameController', function($scope, $filter, socketService, gameService, scoreService) {
   $scope.gameData;
   $scope.score = scoreService.loadScore();
   $scope.ourID;
-  $scope.ourNick;
+  $scope.ourNick = null;
+  $scope.badNick;
+  $scope.badChallenge, $scope.badChallengeReason; 
+  $scope.players = [];
 
   socketService.connect({
     connect: wsConnected,
     move: receiveMove,
     gameStarted: receiveNewGame,
     gameOver: gameOver,
-    gameDenied: gameDenied
+    gameDenied: gameDenied,
+    ackNick: ackNick,
+    playerList: playerList
   });
 
   // websocket callbacks
@@ -103,6 +112,8 @@ angular.module('ticTacToeApp', ['btford.socket-io'])
     $scope.gameData.theirID = game.playerId;
     $scope.gameData.ourTurn = game.ourTurn;
     $scope.gameData.gameID = game.game;
+
+    $scope.badChallenge = false;
   }
 
   function gameOver(winner, stalemate) {
@@ -122,7 +133,30 @@ angular.module('ticTacToeApp', ['btford.socket-io'])
   }
 
   function gameDenied(reason) {
+    $scope.badChallenge = true;
+    $scope.badChallengeReason = reason;
     console.log('game denied: ' + reason);
+  }
+
+  function ackNick(msg) {
+    if (msg === 'good') {
+      $scope.ourNick = $scope.nick;
+      console.log('nick is good!');
+      $scope.badNick = false;
+    } else {
+      console.log('nick is taken :(');
+      $scope.badNick = true;
+    }
+  }
+
+  function playerList(players) {
+    $scope.players = [];
+    angular.forEach(players, function(player, id) {
+      player.id = id;
+      $scope.players.push(player);
+    });
+    console.log($scope.players);
+    $scope.player = $scope.players[0].id;
   }
 
   function placePiece(move, piece) {
@@ -141,7 +175,7 @@ angular.module('ticTacToeApp', ['btford.socket-io'])
 
   $scope.setNick = function(nick) {
     socketService.setNick(nick);
-    $scope.ourNick = nick;
+    // $scope.ourNick = nick;
   }
   
   $scope.makeMove = function(box) {
@@ -161,7 +195,6 @@ angular.module('ticTacToeApp', ['btford.socket-io'])
 
   $scope.startNewGame = function(player) {
     socketService.newGame(player);
-    $scope.gameData = gameService.new();
   }
 
 

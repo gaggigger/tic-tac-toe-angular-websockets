@@ -45,20 +45,22 @@
 
       <div class="col-sm-5 col-sm-offset-1">
         <div class="form-inline">
-          <div class="form-group">
+          <div class="form-group" ng-class="{'has-error': badNick}">
             <label for="nick">Pick a nickname: </label>
             <input type="text" id="nick" ng-model="nick" class="form-control" ng-disabled="ourNick != null">
           </div>
-          <button class="btn btn-primary" ng-class="{'btn-success': ourNick != null};" ng-click="setNick(nick)" ng-disabled="ourNick != null">Set</button>
+          <button class="btn btn-primary" ng-class="{'btn-success': ourNick != null, 'btn-danger': badNick};" ng-click="setNick(nick)" ng-disabled="ourNick != null">Set</button>
         </div>
+        <span class="error" ng-show="badNick">That nickname is taken already!</span>
 
         <div class="form-inline">
-          <div class="form-group">
+          <div class="form-group" ng-class="{'has-error': badChallenge}">
             <label for="player">Challenge a player: </label>
             <input type="text" id="player" ng-model="player" class="form-control" ng-disabled="(gameData!=null && !gameData.gameOver)">
           </div>
-          <button class="btn btn-primary" ng-class="{'btn-success': gameData!=null || (gameData && !gameData.gameOver)}" ng-disabled="ourNick==null || (gameData!=null && !gameData.gameOver)" ng-click="startNewGame(player)">Go</button>
+          <button class="btn btn-primary" ng-class="{'btn-success': gameData!=null || (gameData && !gameData.gameOver), 'btn-danger': badChallenge}" ng-disabled="ourNick==null || (gameData!=null && !gameData.gameOver)" ng-click="startNewGame(player)">Go</button>
         </div>
+        <span class="error" ng-show="badChallenge">{{badChallengeReason}}</span>
 
         <div class="form-inline">
           <div class="form-group">
@@ -67,7 +69,13 @@
           </div>
         </div>
 
+        <div class="playerList">
+          <label>Available players</label>
+          <select ng-model="player" ng-options="data.id as data.nick for (key, data) in players | filter:{inGame: false, nick:'!'+ourNick}" size="5" ng-change="startNewGame(player)"></select>
+        </div>
+
         <div class="currentTurn">
+          <p ng-show="gameData != null && !gameData.gameOver">You're in a game with {{gameData.theirNick}}</p>
           <p>Current turn: {{gameData.ourTurn? ourNick : gameData.theirNick}}</p>
         </div>
 
