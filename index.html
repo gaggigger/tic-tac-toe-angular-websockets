@@ -71,7 +71,7 @@
 
         <div class="playerList">
           <label>Available players</label>
-          <select ng-model="player" ng-options="data.id as data.nick for (key, data) in players | filter:{inGame: false, nick:'!'+ourNick}" size="5" ng-change="startNewGame(player)"></select>
+          <select ng-model="player" ng-options="data.id as data.nick for (key, data) in players | filter:{inGame: false, nick:'!'+ourNick}" size="5" ng-change="startNewGame(player)" ng-disabled="ourNick==null || (gameData!=null && !gameData.gameOver)"></select>
         </div>
 
         <div class="currentTurn">
