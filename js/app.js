@@ -152,9 +152,11 @@ angular.module('ticTacToeApp', ['btford.socket-io'])
   function playerList(players) {
     $scope.players = [];
     angular.forEach(players, function(player, id) {
+      player.id = id;
       $scope.players.push(player);
     });
     console.log($scope.players);
+    $scope.player = $scope.players[0].id;
   }
 
   function placePiece(move, piece) {
