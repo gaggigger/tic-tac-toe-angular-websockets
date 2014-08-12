@@ -96,3 +96,10 @@ a:link {
   font-size: 12px;
   text-align: center;
 }
+
+.playerList {
+  margin-top: 15px;
+}
+.playerList select {
+  width: 80%;
+}

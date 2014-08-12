@@ -69,6 +69,11 @@
           </div>
         </div>
 
+        <div class="playerList">
+          <label>Available players</label>
+          <select ng-model="player" ng-options="data.nick for (id, data) in players | filter:{inGame: false, nick:'!'+ourNick}" size="5"></select>
+        </div>
+
         <div class="currentTurn">
           <p ng-show="gameData != null && !gameData.gameOver">You're in a game with {{gameData.theirNick}}</p>
           <p>Current turn: {{gameData.ourTurn? ourNick : gameData.theirNick}}</p>

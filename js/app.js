@@ -51,6 +51,7 @@ angular.module('ticTacToeApp', ['btford.socket-io'])
       ws.on('game over', callbacks.gameOver);
       ws.on('game denied', callbacks.gameDenied);
       ws.on('ack nick', callbacks.ackNick);
+      ws.on('player list', callbacks.playerList);
       return ws;
     },
     setNick: function(nick) {
@@ -71,13 +72,14 @@ angular.module('ticTacToeApp', ['btford.socket-io'])
   }
 })
 
-.controller('gameController', function($scope, socketService, gameService, scoreService) {
+.controller('gameController', function($scope, $filter, socketService, gameService, scoreService) {
   $scope.gameData;
   $scope.score = scoreService.loadScore();
   $scope.ourID;
-  $scope.ourNick;
+  $scope.ourNick = null;
   $scope.badNick;
   $scope.badChallenge, $scope.badChallengeReason; 
+  $scope.players = [];
 
   socketService.connect({
     connect: wsConnected,
@@ -85,7 +87,8 @@ angular.module('ticTacToeApp', ['btford.socket-io'])
     gameStarted: receiveNewGame,
     gameOver: gameOver,
     gameDenied: gameDenied,
-    ackNick: ackNick
+    ackNick: ackNick,
+    playerList: playerList
   });
 
   // websocket callbacks
@@ -144,6 +147,14 @@ angular.module('ticTacToeApp', ['btford.socket-io'])
       console.log('nick is taken :(');
       $scope.badNick = true;
     }
+  }
+
+  function playerList(players) {
+    $scope.players = [];
+    angular.forEach(players, function(player, id) {
+      $scope.players.push(player);
+    });
+    console.log($scope.players);
   }
 
   function placePiece(move, piece) {
