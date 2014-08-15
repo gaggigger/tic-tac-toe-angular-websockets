@@ -9,10 +9,8 @@ a:link {
 }
 
 .box {
-  height: 150px;
   border: 2px solid #000;
   text-align: center;
-  font-size: 105px;
   vertical-align: middle;
 }
 
@@ -57,8 +55,24 @@ a:link {
   margin-bottom: 50px;
 }
 
-.header img {
-  height: 200px;
+@media(max-width: 800px) {
+  .header img {
+    height: 100px;
+  }
+  .box {
+    height: 110px;
+    font-size: 85px;
+  }
+}
+
+@media(min-width: 801px) {
+  .header img {
+    height: 200px;
+  }
+  .box {
+    height: 150px;
+    font-size: 105px;
+  }
 }
 
 .score {
