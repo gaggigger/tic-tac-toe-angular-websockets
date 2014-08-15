@@ -1,14 +1,21 @@
 tic-tac-toe
 ===========
 
-This is a simple game of tic-tac-toe that I wrote in (mostly) vanilla Javascript.
+This is an extension to the simple [tic-tac-toe](https://github.com/vitosamson/tic-tac-toe) game I wrote previously.
 
-Features:
+It communicates via websockets with a backend I wrote in node.js. The backend can be found [here](https://github.com/vitosamson/tic-tac-api).
 
-- Sleek, functional game board
-- Persistent score keeping via localstorage
-- Cursor changes to display the current turn's piece over the game board
-- Control the game with number pad on keyboard (it's 3x3... almost like it was made for tic-tac-toe)
-
-To do:
-- Create a backend with websockets to allow users to play against each other from different computers
+The following socket events are utilized:
+  - game -> api
+    - connect
+    - set nickname
+    - new game
+    - send move
+  - api -> game
+    - connect ack (sends back player ID)
+    - ack nick (nickname uniqueness validation)
+    - game started (sends game ID, piece data, opponent data)
+    - move (move data from opponent)
+    - game over (who won)
+    - game denied (probably can be removed, along with allowing the user to manually enter a player ID)
+    - player list (player IDs, nicks and availability)
