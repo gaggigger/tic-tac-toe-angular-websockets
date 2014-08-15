@@ -76,8 +76,8 @@
           <select ng-model="player" ng-options="data.id as data.nick for (key, data) in players" size="5" ng-change="startNewGame(player)" ng-disabled="ourNick==null || (gameData!=null && !gameData.gameOver)" multiple></select>
         </div>
 
-        <div class="currentTurn">
-          <p ng-show="gameData != null && !gameData.gameOver">You're in a game with {{gameData.theirNick}}</p>
+        <div class="currentTurn" ng-show="gameData != null && !gameData.gameOver">
+          <p>You're in a game with {{gameData.theirNick}}</p>
           <p>Current turn: {{gameData.ourTurn? ourNick : gameData.theirNick}}</p>
         </div>
 
