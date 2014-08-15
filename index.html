@@ -2,7 +2,8 @@
 <html>
 <head>
   <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/icons.css">
+  <link rel="stylesheet" href="css/style.css">
 
   <script src="https://cdn.socket.io/socket.io-1.0.6.js"></script>
   <script src="bower_components/angular/angular.min.js"></script>
@@ -12,6 +13,12 @@
   <meta name="viewport" content="width=device-width">
 </head>
 <body ng-app="ticTacToeApp" ng-controller="gameController">
+
+  <div class="pull-right github-link">
+    <a href="https://github.com/vitosamson/tic-tac-toe-angular-websockets" target="_blank">
+      <span class="icon-github-circled"></span>
+    </a>
+  </div>
 
   <div class="container">
     <div class="row header">
@@ -91,7 +98,6 @@
         <p class="winner won" ng-show="gameData.stalemate">Everyone's a winner!</p>
       </div>
     </div>
-
 
   </div>
 </body>
