@@ -1,0 +1,28 @@
+{
+  "name": "tic-tac-toe-angular-websockets",
+  "version": "0.0.1",
+  "homepage": "https://github.com/vitosamson/tic-tac-toe-angular-websockets",
+  "authors": [
+    "Vito <vslavilla@gmail.com>"
+  ],
+  "description": "Tic-Tac-Toe game with magical sockets and things",
+  "main": "index.html",
+  "keywords": [
+    "tic-tac-toe",
+    "angular",
+    "websockets"
+  ],
+  "license": "WTFPL",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-socket-io": "~0.6.0",
+    "angular": "~1.2.21",
+    "bootstrap": "~3.2.0"
+  }
+}
