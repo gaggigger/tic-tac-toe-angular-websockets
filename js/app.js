@@ -38,8 +38,8 @@ angular.module('ticTacToeApp', ['btford.socket-io'])
 
 .factory('socketService', function(socketFactory) {
   var ws;
-  // var url = 'ws://lit-anchorage-3918.herokuapp.com:80';
-  var url = 'ws://localhost:5000';
+  var url = 'ws://lit-anchorage-3918.herokuapp.com:80';
+  //var url = 'ws://localhost:5000';
   return {
     connect: function(callbacks) {
       ws = socketFactory({
